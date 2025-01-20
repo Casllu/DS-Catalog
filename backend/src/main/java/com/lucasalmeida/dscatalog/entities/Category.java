@@ -1,6 +1,8 @@
 package com.lucasalmeida.dscatalog.entities;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 import java.io.Serializable;
@@ -9,6 +11,7 @@ import java.util.Objects;
 @Entity(name = "tb_category")
 public class Category implements Serializable {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
 
