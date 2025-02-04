@@ -19,17 +19,10 @@ public class CategoryResource {
     private CategoryService service;
 
     @GetMapping()
-    public ResponseEntity<Page<CategoryDTO>> findAll(@RequestParam(value = "page", defaultValue = "0") Integer page,
-                                                     @RequestParam(value = "linesPerPage", defaultValue = "12") Integer linesPerPage,
-                                                     @RequestParam(value = "direction", defaultValue = "ASC") String direction,
-                                                     @RequestParam(value = "orderBy", defaultValue = "name") String orderBy
-                                                     ) {
-
-        Pageable pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
-        Page<CategoryDTO> list = service.findAllPaged(pageRequest);
+    public ResponseEntity<Page<CategoryDTO>> findAll(Pageable pageable) {
+        Page<CategoryDTO> list = service.findAllPaged(pageable);
 
         return ResponseEntity.ok().body(list);
-
     }
 
     @GetMapping(value = "/{id}")
