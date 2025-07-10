@@ -2,6 +2,7 @@ package com.lucasalmeida.dscatalog.resources.exception;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashMap;
 
 public class StandardError implements Serializable {
 
