@@ -1,7 +1,6 @@
 package com.lucasalmeida.dscatalog.entities;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.ManyToAny;
 
 import java.io.Serializable;
 import java.time.Instant;
