@@ -36,9 +36,7 @@ public class ProductResourceIT {
     private Long existingId;
     private Long nonExistingId;
     private Long countTotalProducts;
-    private String username, password, bearerToken;
-
-
+    private String bearerToken;
 
     @BeforeEach
     public void setUp() throws Exception {
@@ -46,8 +44,8 @@ public class ProductResourceIT {
         nonExistingId = 1000L;
         countTotalProducts = 25L;
 
-        username = "maria@gmail.com";
-        password = "123456";
+        String username = "maria@gmail.com";
+        String password = "123456";
 
         bearerToken = tokenUtil.obtainAccessToken(mockMvc, username, password);    }
 
@@ -100,6 +98,4 @@ public class ProductResourceIT {
 
         result.andExpect(status().isNotFound());
     }
-
-
 }

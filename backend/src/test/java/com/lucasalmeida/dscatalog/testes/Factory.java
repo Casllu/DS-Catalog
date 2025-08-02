@@ -1,8 +1,10 @@
 package com.lucasalmeida.dscatalog.testes;
 
 import com.lucasalmeida.dscatalog.dto.ProductDTO;
+import com.lucasalmeida.dscatalog.dto.ProductProjectionImpl;
 import com.lucasalmeida.dscatalog.entities.Category;
 import com.lucasalmeida.dscatalog.entities.Product;
+import com.lucasalmeida.dscatalog.projections.ProductProjection;
 
 import java.time.Instant;
 import java.util.HashSet;
@@ -19,6 +21,10 @@ public class Factory {
     public static ProductDTO createProductDTO() {
         Product product = createProduct();
         return new ProductDTO(product, product.getCategories());
+    }
+
+    public static ProductProjectionImpl createProductProjection() {
+        return new ProductProjectionImpl(1L, "Phone");
     }
 
     public static Category createCategory() {

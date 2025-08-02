@@ -2,6 +2,8 @@ package com.lucasalmeida.dscatalog.resources;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lucasalmeida.dscatalog.dto.ProductDTO;
+import com.lucasalmeida.dscatalog.dto.ProductProjectionImpl;
+import com.lucasalmeida.dscatalog.projections.ProductProjection;
 import com.lucasalmeida.dscatalog.servicies.ProductService;
 import com.lucasalmeida.dscatalog.servicies.exceptions.DatabaseException;
 import com.lucasalmeida.dscatalog.servicies.exceptions.ResourceNotFoundException;
@@ -12,7 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
@@ -42,7 +46,8 @@ public class ProductResourceTests {
     private Long nonExistingId;
     private Long dependentId;
     private ProductDTO productDTO;
-    private PageImpl<ProductDTO> page;
+    private ProductProjectionImpl productProjection;
+    private Page<ProductDTO> page;
 
     @BeforeEach
     public void setUp() {
@@ -51,9 +56,10 @@ public class ProductResourceTests {
         nonExistingId = 2L;
         dependentId = 3L;
         productDTO = Factory.createProductDTO();
+        productProjection = Factory.createProductProjection();
         page = new PageImpl<>(List.of(productDTO));
 
-        when(service.findAllPaged(any())).thenReturn(page);
+        when(service.findAllPaged(eq(""), eq("0"),any(Pageable.class))).thenReturn(page);
 
         when(service.findById(existingId)).thenReturn(productDTO);
         when(service.findById(nonExistingId)).thenThrow(ResourceNotFoundException.class);
