@@ -1,6 +1,7 @@
 package com.lucasalmeida.dscatalog.resources.exception;
 
 import com.lucasalmeida.dscatalog.servicies.exceptions.DatabaseException;
+import com.lucasalmeida.dscatalog.servicies.exceptions.EmailException;
 import com.lucasalmeida.dscatalog.servicies.exceptions.ResourceNotFoundException;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -55,6 +56,19 @@ public class ResourceExceptionHandler {
         for (FieldError f : e.getFieldErrors()) {
             err.addError(f.getField(), f.getDefaultMessage());
         }
+
+        return ResponseEntity.status(status).body(err);
+    }
+
+    @ExceptionHandler(EmailException.class)
+    public ResponseEntity<ValidationError> email(EmailException e, HttpServletRequest request) {
+        HttpStatus status = HttpStatus.BAD_REQUEST;
+        ValidationError err = new ValidationError();
+        err.setTimestamp(Instant.now());
+        err.setStatus(status.value());
+        err.setError("Email Exception");
+        err.setMessage(e.getMessage());
+        err.setPath(request.getRequestURI());
 
         return ResponseEntity.status(status).body(err);
     }

@@ -1,9 +1,6 @@
 package com.lucasalmeida.dscatalog.resources;
 
-import com.lucasalmeida.dscatalog.dto.EmailDTO;
-import com.lucasalmeida.dscatalog.dto.UserDTO;
-import com.lucasalmeida.dscatalog.dto.UserInsertDTO;
-import com.lucasalmeida.dscatalog.dto.UserUpdateDTO;
+import com.lucasalmeida.dscatalog.dto.*;
 import com.lucasalmeida.dscatalog.servicies.AuthService;
 import com.lucasalmeida.dscatalog.servicies.UserService;
 import jakarta.validation.Valid;
@@ -27,6 +24,13 @@ public class AuthResource {
     @PostMapping(value = "/recover-token")
     public ResponseEntity<Void> createRecoverToken(@Valid @RequestBody EmailDTO body) {
         authService.createRecoverToken(body);
+
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping(value = "/new-password")
+    public ResponseEntity<Void> newPassword(@Valid @RequestBody NewPasswordDTO body) {
+        authService.saveNewPassword(body);
 
         return ResponseEntity.noContent().build();
     }
